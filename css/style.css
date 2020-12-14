@@ -1230,3 +1230,7 @@ button,
 .content .element--uploaded .img-upload {
   display: none;
 }
+
+.hidden-block {
+  display: none;
+}
