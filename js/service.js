@@ -1,4 +1,4 @@
-import {AppEvent, LayoutType} from "./utils.js";
+import {AppEvent, LayoutType} from './utils.js';
 
 export class Service {
   constructor() {
@@ -10,22 +10,27 @@ export class Service {
     return this._layoutType;
   }
 
-  setLayoutType(layoutType) {
-    this._layoutType = layoutType;
-    this._emitEvent(AppEvent.LAYOUT_CHANGED, this._layoutType)
+  getBlockElements(blockName) {
+    return this._data[blockName] || [];
   }
 
-  addNewElement(container, elementType) {
+  setLayoutType(layoutType) {
+    this._layoutType = layoutType;
+    this._emitEvent(AppEvent.LAYOUT_CHANGED, this._layoutType);
+  }
+
+  addElement(container, element) {
     if (!this._data[container]) {
       this._data[container] = [];
     }
 
-    this._data[container].push({elementType});
+    this._data[container].push(element);
 
-    this._emitEvent(AppEvent.ELEMENT_ADDED, {container, elementType});
+    this._emitEvent(AppEvent.ELEMENT_ADDED, {container, element});
   }
 
   _emitEvent(type, data) {
+    console.log(this._data);
     window.dispatchEvent(new CustomEvent(type, {detail: data}));
   }
 }

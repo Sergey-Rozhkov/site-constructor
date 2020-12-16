@@ -1,11 +1,12 @@
-import {AbstractComponent} from "./abstract-component.js";
-import {DEFAULT_COLUMN_INDEX, renderElement} from "../utils.js";
-import {ChooseElementComponent} from "./choose-element-component.js";
+import {DEFAULT_COLUMN_INDEX} from '../utils.js';
+import {AbstractBlockComponent} from './abstract-block-component.js';
 
-export class ContentBlockComponent extends AbstractComponent {
-  constructor(columnIndex = DEFAULT_COLUMN_INDEX) {
-    super();
+export class ContentBlockComponent extends AbstractBlockComponent {
+  constructor(service, columnIndex = DEFAULT_COLUMN_INDEX) {
+    super(service);
+
     this._columnIndex = columnIndex;
+    this._blockName = `content-${columnIndex}`;
   }
 
   _getTemplate() {
@@ -19,17 +20,6 @@ export class ContentBlockComponent extends AbstractComponent {
                   fill="#80CCF0" fill-rule="evenodd"/>
           </svg>
         </button>
-      </div>`
-  }
-
-  _afterCreateElement() {
-    this._chooseElementComponent = new ChooseElementComponent();
-    renderElement(this.getElement(), this._chooseElementComponent.getElement())
-
-    this.getElement().querySelector(`button.add-btn`).addEventListener(`click`, this._onAddBtnClick.bind(this))
-  }
-
-  _onAddBtnClick(e) {
-    this._chooseElementComponent.getElement().classList.toggle('hidden-block');
+      </div>`;
   }
 }

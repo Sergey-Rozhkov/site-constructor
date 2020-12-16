@@ -1,7 +1,7 @@
-import {Service} from "./service.js";
-import {GridSelectorComponent} from "./components/grid-selector-component.js";
-import {renderElement, RenderPosition} from "./utils.js";
-import {LayoutComponent} from "./components/layout-component.js";
+import {GridSelectorComponent} from './components/grid-selector-component.js';
+import {LayoutComponent} from './components/layout-component.js';
+import {Service} from './service.js';
+import {renderElement, RenderPosition} from './utils.js';
 
 export class App {
   constructor() {

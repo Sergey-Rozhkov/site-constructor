@@ -11,7 +11,7 @@ export const RenderPosition = {
 export const ColumnIndex = {
   LEFT: 1,
   CENTER: 2,
-  RIGHT: 3
+  RIGHT: 3,
 };
 
 export const LayoutType = {
@@ -22,8 +22,8 @@ export const LayoutType = {
 
 export const AppEvent = {
   LAYOUT_CHANGED: 'LayoutChanged',
-  ELEMENT_ADDED: 'ElementAdded'
-}
+  ELEMENT_ADDED: 'ElementAdded',
+};
 
 export function createElement(template) {
   const element = document.createElement(`div`);

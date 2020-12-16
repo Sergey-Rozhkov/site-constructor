@@ -1,11 +1,17 @@
-import {AbstractComponent} from "./abstract-component.js";
-import {ChooseElementComponent} from "./choose-element-component.js";
-import {renderElement} from "../utils.js";
+import {AbstractBlockComponent} from './abstract-block-component.js';
 
-export class FooterBlockComponent extends AbstractComponent {
+export class FooterBlockComponent extends AbstractBlockComponent {
+  constructor(service) {
+    super(service);
+
+    this._blockName = `footer`;
+  }
+
   _getTemplate() {
+    const elementsCount = this._elements.length;
+
     return `
-      <footer class="footer footer--empty">
+      <footer class="footer ${elementsCount ? `` : `footer--empty`}">
         <p class="placeholder">Footer</p>
         <button class="add-btn" type="button">
           <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
@@ -14,17 +20,6 @@ export class FooterBlockComponent extends AbstractComponent {
                   fill="#80CCF0" fill-rule="evenodd"/>
           </svg>
         </button>
-      </footer>`
-  }
-
-  _afterCreateElement() {
-    this._chooseElementComponent = new ChooseElementComponent();
-    renderElement(this.getElement(), this._chooseElementComponent.getElement())
-
-    this.getElement().querySelector(`button.add-btn`).addEventListener(`click`, this._onAddBtnClick.bind(this))
-  }
-
-  _onAddBtnClick(e) {
-    this._chooseElementComponent.getElement().classList.toggle('hidden-block');
+      </footer>`;
   }
 }

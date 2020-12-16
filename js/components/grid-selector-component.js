@@ -1,5 +1,5 @@
+import {LayoutType} from '../utils.js';
 import {AbstractComponent} from './abstract-component.js';
-import {LayoutType} from "../utils.js";
 
 export class GridSelectorComponent extends AbstractComponent {
   constructor(service) {
@@ -44,11 +44,11 @@ export class GridSelectorComponent extends AbstractComponent {
   }
 
   _afterCreateElement() {
-    this.getElement().addEventListener('change', this._onGridTypeChanged.bind(this))
-    this.getElement().querySelector(`#grid-${this.service.getLayoutType()}`).toggleAttribute(`checked`, true)
+    this.getElement().addEventListener('change', this._onGridTypeChanged.bind(this));
+    this.getElement().querySelector(`#grid-${this.service.getLayoutType()}`).toggleAttribute(`checked`, true);
   }
 
   _onGridTypeChanged(evt) {
-    this.service.setLayoutType(evt.target.value)
+    this.service.setLayoutType(evt.target.value);
   }
 }

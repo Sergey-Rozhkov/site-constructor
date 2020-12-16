@@ -14,10 +14,15 @@ export class AbstractComponent {
 
   getElement() {
     if (!this._element) {
+      this._beforeCreateElement();
       this._element = createElement(this._getTemplate());
       this._afterCreateElement();
     }
     return this._element;
+  }
+
+  _beforeCreateElement() {
+    // abstract hook method
   }
 
   _afterCreateElement() {

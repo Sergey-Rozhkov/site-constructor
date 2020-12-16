@@ -1,11 +1,17 @@
-import {AbstractComponent} from "./abstract-component.js";
-import {ChooseElementComponent} from "./choose-element-component.js";
-import {renderElement} from "../utils.js";
+import {AbstractBlockComponent} from './abstract-block-component.js';
 
-export class HeaderBlockComponent extends AbstractComponent {
+export class HeaderBlockComponent extends AbstractBlockComponent {
+  constructor(service) {
+    super(service);
+
+    this._blockName = `header`;
+  }
+
   _getTemplate() {
+    const elementsCount = this._elements.length;
+
     return `
-      <header class="header header--empty">
+      <header class="header ${elementsCount ? `` : `header--empty`}">
         <p class="placeholder">Header</p>
         <button class="add-btn" type="button">
           <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
@@ -14,17 +20,7 @@ export class HeaderBlockComponent extends AbstractComponent {
                   fill="#80CCF0" fill-rule="evenodd"/>
           </svg>
         </button>
-      </header>`
-  }
-
-  _afterCreateElement() {
-    this._chooseElementComponent = new ChooseElementComponent();
-    renderElement(this.getElement(), this._chooseElementComponent.getElement())
-
-    this.getElement().querySelector(`button.add-btn`).addEventListener(`click`, this._onAddBtnClick.bind(this))
-  }
-
-  _onAddBtnClick(e) {
-    this._chooseElementComponent.getElement().classList.toggle('hidden-block');
+      </header>`;
   }
 }
+

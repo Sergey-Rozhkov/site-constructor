@@ -1,9 +1,9 @@
-import {AbstractComponent} from "./abstract-component.js";
+import {AbstractComponent} from './abstract-component.js';
 
 export class ChooseElementComponent extends AbstractComponent {
-  constructor(onElementAddAction) {
+  constructor(addElementCallback) {
     super();
-    this._onElementAddAction = onElementAddAction;
+    this._addElementCallback = addElementCallback;
   }
 
   _getTemplate() {
@@ -13,19 +13,19 @@ export class ChooseElementComponent extends AbstractComponent {
               <button class="choose-elem__btn" type="button" data-element="h3">Заголовок H3</button>
               <button class="choose-elem__btn" type="button" data-element="p">Абзац текста</button>
               <button class="choose-elem__btn" type="button" data-element="img">Изображение</button>
-            </div>`
+            </div>`;
   }
 
   _afterCreateElement() {
     this.getElement()
       .querySelectorAll(`button.choose-elem__btn`)
-      .forEach(el => el.addEventListener(`click`, this._onAddBtnClick.bind(this)))
+      .forEach((el) => el.addEventListener(`click`, this._onAddElementBtnClick.bind(this)));
   }
 
-  _onAddBtnClick(e) {
+  _onAddElementBtnClick(e) {
     const newElementType = e.target.dataset.element;
+    const newElementText = e.target.innerText;
 
-    this._onElementAddAction(newElementType);
+    this._addElementCallback(newElementType, newElementText);
   }
-
 }
