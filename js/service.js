@@ -1,7 +1,9 @@
-import {AppEvent, LayoutType} from './utils.js';
+import {AppEvent, generateId, LayoutType} from './utils.js';
 
 export class Service {
   constructor() {
+    // Нужно для отладки
+    // this._data = JSON.parse(localStorage.getItem(`siteData`) || `{}`);
     this._data = {};
     this._layoutType = LayoutType.LANDING;
   }
@@ -16,6 +18,7 @@ export class Service {
 
   setLayoutType(layoutType) {
     this._layoutType = layoutType;
+    this._data = {};
     this._emitEvent(AppEvent.LAYOUT_CHANGED, this._layoutType);
   }
 
@@ -24,13 +27,32 @@ export class Service {
       this._data[container] = [];
     }
 
+    element.id = generateId();
+
     this._data[container].push(element);
 
     this._emitEvent(AppEvent.ELEMENT_ADDED, {container, element});
   }
 
+  deleteElement(container, element) {
+    const findIndex = this._data[container].findIndex((item) => item.id === element.id);
+
+    this._data[container].splice(findIndex, 1);
+
+    this._emitEvent(AppEvent.ELEMENT_DELETED, {container, element});
+  }
+
+  updateElement(container, element) {
+    const findIndex = this._data[container].findIndex((item) => item.id === element.id);
+
+    this._data[container].splice(findIndex, 1, element);
+
+    this._emitEvent(AppEvent.ELEMENT_UPDATED, {container, element});
+  }
+
   _emitEvent(type, data) {
-    console.log(this._data);
+    // Нужно для отладки
+    // localStorage.setItem(`siteData`, JSON.stringify(this._data));
     window.dispatchEvent(new CustomEvent(type, {detail: data}));
   }
 }

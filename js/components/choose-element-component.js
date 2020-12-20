@@ -1,4 +1,5 @@
 import {AbstractComponent} from './abstract-component.js';
+import {ElementType} from "../utils.js";
 
 export class ChooseElementComponent extends AbstractComponent {
   constructor(addElementCallback) {
@@ -24,7 +25,7 @@ export class ChooseElementComponent extends AbstractComponent {
 
   _onAddElementBtnClick(e) {
     const newElementType = e.target.dataset.element;
-    const newElementText = e.target.innerText;
+    const newElementText = (newElementType === ElementType.IMG) ? `` : e.target.innerText;
 
     this._addElementCallback(newElementType, newElementText);
   }

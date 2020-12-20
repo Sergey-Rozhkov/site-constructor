@@ -20,9 +20,19 @@ export const LayoutType = {
   SHOP: `shop`,
 };
 
+export const ElementType = {
+  H1: `h1`,
+  H2: `h2`,
+  H3: `h3`,
+  P: `p`,
+  IMG: `img`,
+};
+
 export const AppEvent = {
-  LAYOUT_CHANGED: 'LayoutChanged',
-  ELEMENT_ADDED: 'ElementAdded',
+  LAYOUT_CHANGED: `LayoutChanged`,
+  ELEMENT_ADDED: `ElementAdded`,
+  ELEMENT_DELETED: `ElementDeleted`,
+  ELEMENT_UPDATED: `ElementUpdated`,
 };
 
 export function createElement(template) {
@@ -58,4 +68,8 @@ export const renderElement = (container, child, position = RenderPosition.BEFORE
 
 export function setElementVisibility(element, visibility) {
   element.classList.toggle(HIDE_BLOCK_CLASS, !visibility);
+}
+
+export function generateId() {
+  return Math.random().toString(16).slice(8);
 }

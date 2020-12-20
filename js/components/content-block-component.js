@@ -10,8 +10,10 @@ export class ContentBlockComponent extends AbstractBlockComponent {
   }
 
   _getTemplate() {
+    const elementsCount = this._elements.length;
+
     return `
-      <div class="content content-${this._columnIndex} content--empty">
+      <div class="content content-${this._columnIndex} ${elementsCount ? `` : `content--empty`}">
         <p class="placeholder">Content</p>
         <button class="add-btn" type="button">
           <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
