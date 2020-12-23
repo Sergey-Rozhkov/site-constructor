@@ -1,5 +1,5 @@
 import {AbstractComponent} from './abstract-component.js';
-import {ElementType} from "../utils.js";
+import {ElementType, KEYCODE_ENTER} from "../utils.js";
 
 export class AbstractElementComponent extends AbstractComponent {
   constructor(data, changeDataHandler, deleteDataHandler) {
@@ -49,7 +49,7 @@ export class AbstractElementComponent extends AbstractComponent {
   }
 
   _contentKeyDownHandler(evt) {
-    if (evt.keyCode === 13) {
+    if (evt.keyCode === KEYCODE_ENTER) {
       const content = evt.target.innerText;
 
       this._contentChangeHandler(content);

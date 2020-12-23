@@ -5,6 +5,8 @@ export class ChooseElementComponent extends AbstractComponent {
   constructor(addElementCallback) {
     super();
     this._addElementCallback = addElementCallback;
+
+    this._chooseElemBtnClickHandler = this._chooseElemBtnClickHandler.bind(this);
   }
 
   _getTemplate() {
@@ -17,13 +19,17 @@ export class ChooseElementComponent extends AbstractComponent {
             </div>`;
   }
 
+  toggleVisibility(force) {
+    this.getElement().classList.toggle(`hidden-block`, force);
+  }
+
   _afterCreateElement() {
     this.getElement()
       .querySelectorAll(`button.choose-elem__btn`)
-      .forEach((el) => el.addEventListener(`click`, this._onAddElementBtnClick.bind(this)));
+      .forEach((el) => el.addEventListener(`click`, this._chooseElemBtnClickHandler));
   }
 
-  _onAddElementBtnClick(e) {
+  _chooseElemBtnClickHandler(e) {
     const newElementType = e.target.dataset.element;
     const newElementText = (newElementType === ElementType.IMG) ? `` : e.target.innerText;
 

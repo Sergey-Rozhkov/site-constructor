@@ -25,6 +25,7 @@ export class LayoutComponent extends AbstractComponent {
   }
 
   initLayout() {
+    console.log(`LayoutComponent.initLayout`, this._layoutType);
     this.cleanupLayout();
     this.getElement().classList.add(`layout--${this._layoutType}`);
 
@@ -33,14 +34,14 @@ export class LayoutComponent extends AbstractComponent {
     renderElement(this.getElement(), headerBlockElement);
 
     switch (this._layoutType) {
+      case LayoutType.LANDING:
+        this.initLanding();
+        break;
       case LayoutType.BLOG:
         this.initBlog();
         break;
       case LayoutType.SHOP:
         this.initShop();
-        break;
-      case LayoutType.LANDING:
-        this.initLanding();
         break;
     }
 
@@ -51,7 +52,9 @@ export class LayoutComponent extends AbstractComponent {
 
   cleanupLayout() {
     this.getElement().innerText = ``;
-    this.getElement().setAttribute(`class`, `layout`);
+    this.getElement().classList.remove(`layout--${LayoutType.LANDING}`);
+    this.getElement().classList.remove(`layout--${LayoutType.BLOG}`);
+    this.getElement().classList.remove(`layout--${LayoutType.SHOP}`);
   }
 
   initLanding() {
@@ -61,26 +64,26 @@ export class LayoutComponent extends AbstractComponent {
   }
 
   initBlog() {
-    const contentBlockComponent1 = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
-    const contentBlockElement1 = contentBlockComponent1.getElement();
-    renderElement(this.getElement(), contentBlockElement1);
+    const contentBlockComponentLeft = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
+    const contentBlockElementLeft = contentBlockComponentLeft.getElement();
+    renderElement(this.getElement(), contentBlockElementLeft);
 
-    const contentBlockComponent2 = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
-    const contentBlockElement2 = contentBlockComponent2.getElement();
-    renderElement(this.getElement(), contentBlockElement2);
+    const contentBlockComponentRight = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
+    const contentBlockElementRight = contentBlockComponentRight.getElement();
+    renderElement(this.getElement(), contentBlockElementRight);
   }
 
   initShop() {
-    const contentBlockComponent1 = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
-    const contentBlockElement1 = contentBlockComponent1.getElement();
-    renderElement(this.getElement(), contentBlockElement1);
+    const contentBlockComponentLeft = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
+    const contentBlockElementLeft = contentBlockComponentLeft.getElement();
+    renderElement(this.getElement(), contentBlockElementLeft);
 
-    const contentBlockComponent2 = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
-    const contentBlockElement2 = contentBlockComponent2.getElement();
-    renderElement(this.getElement(), contentBlockElement2);
+    const contentBlockComponentCenter = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
+    const contentBlockElementCenter = contentBlockComponentCenter.getElement();
+    renderElement(this.getElement(), contentBlockElementCenter);
 
-    const contentBlockComponent3 = new ContentBlockComponent(this.service, ColumnIndex.RIGHT);
-    const contentBlockElement3 = contentBlockComponent3.getElement();
-    renderElement(this.getElement(), contentBlockElement3);
+    const contentBlockComponentRight = new ContentBlockComponent(this.service, ColumnIndex.RIGHT);
+    const contentBlockElementRight = contentBlockComponentRight.getElement();
+    renderElement(this.getElement(), contentBlockElementRight);
   }
 }

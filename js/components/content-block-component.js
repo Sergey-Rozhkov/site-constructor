@@ -1,4 +1,4 @@
-import {DEFAULT_COLUMN_INDEX} from '../utils.js';
+import {BlockType, DEFAULT_COLUMN_INDEX} from '../utils.js';
 import {AbstractBlockComponent} from './abstract-block-component.js';
 
 export class ContentBlockComponent extends AbstractBlockComponent {
@@ -6,7 +6,7 @@ export class ContentBlockComponent extends AbstractBlockComponent {
     super(service);
 
     this._columnIndex = columnIndex;
-    this._blockName = `content-${columnIndex}`;
+    this._blockName = `${BlockType.CONTENT}-${columnIndex}`;
   }
 
   _getTemplate() {

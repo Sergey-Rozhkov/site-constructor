@@ -35,7 +35,7 @@ export class Service {
   }
 
   deleteElement(container, element) {
-    const findIndex = this._data[container].findIndex((item) => item.id === element.id);
+    const findIndex = this._getContainerElementIndex(container, element);
 
     this._data[container].splice(findIndex, 1);
 
@@ -43,7 +43,7 @@ export class Service {
   }
 
   updateElement(container, element) {
-    const findIndex = this._data[container].findIndex((item) => item.id === element.id);
+    const findIndex = this._getContainerElementIndex(container, element);
 
     this._data[container].splice(findIndex, 1, element);
 
@@ -54,5 +54,9 @@ export class Service {
     // Нужно для отладки
     // localStorage.setItem(`siteData`, JSON.stringify(this._data));
     window.dispatchEvent(new CustomEvent(type, {detail: data}));
+  }
+
+  _getContainerElementIndex(container, {id}) {
+    return this._data[container].findIndex((item) => item.id === id);
   }
 }

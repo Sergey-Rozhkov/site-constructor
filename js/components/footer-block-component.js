@@ -1,10 +1,11 @@
 import {AbstractBlockComponent} from './abstract-block-component.js';
+import {BlockType} from "../utils.js";
 
 export class FooterBlockComponent extends AbstractBlockComponent {
   constructor(service) {
     super(service);
 
-    this._blockName = `footer`;
+    this._blockName = BlockType.FOOTER;
   }
 
   _getTemplate() {

@@ -44,11 +44,11 @@ export class GridSelectorComponent extends AbstractComponent {
   }
 
   _afterCreateElement() {
-    this.getElement().addEventListener(`change`, this._onGridTypeChanged.bind(this));
+    this.getElement().addEventListener(`change`, this._gridTypeChangedHandler.bind(this));
     this.getElement().querySelector(`#grid-${this.service.getLayoutType()}`).toggleAttribute(`checked`, true);
   }
 
-  _onGridTypeChanged(evt) {
+  _gridTypeChangedHandler(evt) {
     this.service.setLayoutType(evt.target.value);
   }
 }

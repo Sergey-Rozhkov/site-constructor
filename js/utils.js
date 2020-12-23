@@ -1,5 +1,6 @@
 export const HIDE_BLOCK_CLASS = `hidden-block`;
 export const DEFAULT_COLUMN_INDEX = 1;
+export const KEYCODE_ENTER = 13;
 
 export const RenderPosition = {
   BEFOREBEGIN: `beforebegin`,
@@ -18,6 +19,12 @@ export const LayoutType = {
   LANDING: `landing`,
   BLOG: `blog`,
   SHOP: `shop`,
+};
+
+export const BlockType = {
+  HEADER: `header`,
+  CONTENT: `content`,
+  FOOTER: `footer`,
 };
 
 export const ElementType = {

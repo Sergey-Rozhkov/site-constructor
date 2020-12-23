@@ -23,7 +23,7 @@ export class AbstractBlockComponent extends AbstractComponent {
   }
 
   _beforeCreateElement() {
-    this._elements = this.service.getBlockElements(this._blockName) || [];
+    this._elements = this.service.getBlockElements(this._blockName);
   }
 
   _afterCreateElement() {
@@ -39,24 +39,20 @@ export class AbstractBlockComponent extends AbstractComponent {
   }
 
   _addBtnClickHandler() {
-    this._chooseElementComponent.getElement().classList.toggle(`hidden-block`);
+    this._chooseElementComponent.toggleVisibility();
   }
 
   _addElementHandler(type, content) {
-    this._chooseElementComponent.getElement().classList.toggle(`hidden-block`, true);
+    this._chooseElementComponent.toggleVisibility(true);
     this.service.addElement(this._blockName, {type, content});
   }
 
   _fillBlock() {
-    this._elements = this.service.getBlockElements(this._blockName) || [];
+    this._elements = this.service.getBlockElements(this._blockName);
 
-    const emptyBlockClass = this._columnIndex ? `content--empty` : `${this._blockName}--empty`;
+    const emptyBlockClass = `${this._columnIndex ? `content` : this._blockName}--empty`;
 
-    if (this._elements.length) {
-      this.getElement().classList.remove(emptyBlockClass);
-    } else {
-      this.getElement().classList.add(emptyBlockClass);
-    }
+    this.getElement().classList.toggle(emptyBlockClass, !this._elements.length);
 
     let wrapperElement = this.getElement().querySelector(`.${this._blockName}__elements-wrapper`);
 
@@ -70,28 +66,26 @@ export class AbstractBlockComponent extends AbstractComponent {
     }
 
     this._elements.forEach((element) => {
+      let elementComponent;
       switch (element.type) {
         case ElementType.H1:
-          const h1Element = new H1Element(element, this._changeDataHandler, this._deleteDataHandler);
-          renderElement(wrapperElement, h1Element.getElement());
+          elementComponent = new H1Element(element, this._changeDataHandler, this._deleteDataHandler);
           break;
         case ElementType.H2:
-          const h2Element = new H2Element(element, this._changeDataHandler, this._deleteDataHandler);
-          renderElement(wrapperElement, h2Element.getElement());
+          elementComponent = new H2Element(element, this._changeDataHandler, this._deleteDataHandler);
           break;
         case ElementType.H3:
-          const h3Element = new H3Element(element, this._changeDataHandler, this._deleteDataHandler);
-          renderElement(wrapperElement, h3Element.getElement());
+          elementComponent = new H3Element(element, this._changeDataHandler, this._deleteDataHandler);
           break;
         case ElementType.P:
-          const pElement = new PElement(element, this._changeDataHandler, this._deleteDataHandler);
-          renderElement(wrapperElement, pElement.getElement());
+          elementComponent = new PElement(element, this._changeDataHandler, this._deleteDataHandler);
           break;
         case ElementType.IMG:
-          const imgElement = new ImgElement(element, this._changeDataHandler, this._deleteDataHandler);
-          renderElement(wrapperElement, imgElement.getElement());
+          elementComponent = new ImgElement(element, this._changeDataHandler, this._deleteDataHandler);
           break;
       }
+
+      renderElement(wrapperElement, elementComponent.getElement());
     });
   }
 
