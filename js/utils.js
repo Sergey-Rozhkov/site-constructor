@@ -9,10 +9,10 @@ export const RenderPosition = {
   AFTEREND: `afterend`,
 };
 
-export const ColumnIndex = {
-  LEFT: 1,
-  CENTER: 2,
-  RIGHT: 3,
+export const LayoutContentColumn = {
+  LANDING: 1,
+  BLOG: 2,
+  SHOP: 3,
 };
 
 export const LayoutType = {

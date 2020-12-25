@@ -1,4 +1,4 @@
-import {AppEvent, ColumnIndex, LayoutType, renderElement} from '../utils.js';
+import {AppEvent, LayoutContentColumn, LayoutType, renderElement} from '../utils.js';
 import {AbstractComponent} from './abstract-component.js';
 import {ContentBlockComponent} from './content-block-component.js';
 import {FooterBlockComponent} from './footer-block-component.js';
@@ -10,6 +10,7 @@ export class LayoutComponent extends AbstractComponent {
 
     this.service = service;
     this._layoutType = service.getLayoutType();
+    this._layoutElements = [];
   }
 
   _getTemplate() {
@@ -25,65 +26,48 @@ export class LayoutComponent extends AbstractComponent {
   }
 
   initLayout() {
-    console.log(`LayoutComponent.initLayout`, this._layoutType);
     this.cleanupLayout();
     this.getElement().classList.add(`layout--${this._layoutType}`);
 
     const headerBlockComponent = new HeaderBlockComponent(this.service);
     const headerBlockElement = headerBlockComponent.getElement();
     renderElement(this.getElement(), headerBlockElement);
+    this._layoutElements.push(headerBlockComponent);
 
     switch (this._layoutType) {
       case LayoutType.LANDING:
-        this.initLanding();
+        this.initContent(LayoutContentColumn.LANDING);
         break;
       case LayoutType.BLOG:
-        this.initBlog();
+        this.initContent(LayoutContentColumn.BLOG);
         break;
       case LayoutType.SHOP:
-        this.initShop();
+        this.initContent(LayoutContentColumn.SHOP);
         break;
     }
 
     const footerBlockComponent = new FooterBlockComponent(this.service);
     const footerBlockElement = footerBlockComponent.getElement();
     renderElement(this.getElement(), footerBlockElement);
+    this._layoutElements.push(footerBlockComponent);
   }
 
   cleanupLayout() {
+    this._layoutElements.forEach((element) => element.removeEventListeners());
+    this._layoutElements = [];
     this.getElement().innerText = ``;
     this.getElement().classList.remove(`layout--${LayoutType.LANDING}`);
     this.getElement().classList.remove(`layout--${LayoutType.BLOG}`);
     this.getElement().classList.remove(`layout--${LayoutType.SHOP}`);
   }
 
-  initLanding() {
-    const contentBlockComponent = new ContentBlockComponent(this.service);
-    const contentBlockElement = contentBlockComponent.getElement();
-    renderElement(this.getElement(), contentBlockElement);
-  }
+  initContent(contentBlockCount) {
+    for (let i = 1; i <= contentBlockCount; i++) {
+      const contentBlock = new ContentBlockComponent(this.service, i);
+      const contentBlockElement = contentBlock.getElement();
 
-  initBlog() {
-    const contentBlockComponentLeft = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
-    const contentBlockElementLeft = contentBlockComponentLeft.getElement();
-    renderElement(this.getElement(), contentBlockElementLeft);
-
-    const contentBlockComponentRight = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
-    const contentBlockElementRight = contentBlockComponentRight.getElement();
-    renderElement(this.getElement(), contentBlockElementRight);
-  }
-
-  initShop() {
-    const contentBlockComponentLeft = new ContentBlockComponent(this.service, ColumnIndex.LEFT);
-    const contentBlockElementLeft = contentBlockComponentLeft.getElement();
-    renderElement(this.getElement(), contentBlockElementLeft);
-
-    const contentBlockComponentCenter = new ContentBlockComponent(this.service, ColumnIndex.CENTER);
-    const contentBlockElementCenter = contentBlockComponentCenter.getElement();
-    renderElement(this.getElement(), contentBlockElementCenter);
-
-    const contentBlockComponentRight = new ContentBlockComponent(this.service, ColumnIndex.RIGHT);
-    const contentBlockElementRight = contentBlockComponentRight.getElement();
-    renderElement(this.getElement(), contentBlockElementRight);
+      renderElement(this.getElement(), contentBlockElement);
+      this._layoutElements.push(contentBlock);
+    }
   }
 }

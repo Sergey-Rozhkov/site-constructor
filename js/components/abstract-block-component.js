@@ -23,6 +23,12 @@ export class AbstractBlockComponent extends AbstractComponent {
     this._fillBlock = this._fillBlock.bind(this);
   }
 
+  removeEventListeners() {
+    window.addEventListener(AppEvent.ELEMENT_ADDED, this._fillBlock);
+    window.addEventListener(AppEvent.ELEMENT_DELETED, this._fillBlock);
+    window.addEventListener(AppEvent.ELEMENT_UPDATED, this._fillBlock);
+  }
+
   _beforeCreateElement() {
     this._elements = this.service.getBlockElements(this._blockName);
   }

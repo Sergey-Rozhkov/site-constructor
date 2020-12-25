@@ -5,7 +5,7 @@ export class H2Element extends AbstractElementComponent {
     const {content} = this._data;
 
     return `<div class="element title" tabindex="0">
-              <h2 contenteditable="true" data-placeholder="${content}" class="content content-element">${content}</h2>
+              <h2 contenteditable="true" data-placeholder="${content}" class="content-element">${content}</h2>
               <button class="delete-btn" type="button">
                 <span class="visually-hidden">Удалить элемент</span>
               </button>

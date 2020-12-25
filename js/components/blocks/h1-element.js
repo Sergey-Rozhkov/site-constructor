@@ -5,7 +5,7 @@ export class H1Element extends AbstractElementComponent {
     const {content} = this._data;
 
     return `<div class="element title" tabindex="0">
-              <h1 contenteditable="true" data-placeholder="${content}" class="content content-element">${content}</h1>
+              <h1 contenteditable="true" data-placeholder="${content}" class="content-element">${content}</h1>
               <button class="delete-btn" type="button">
                 <span class="visually-hidden">Удалить элемент</span>
               </button>
