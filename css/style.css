@@ -889,10 +889,11 @@ button,
   display: none;
 }
 
-[contenteditable=true]:empty::before {
-  content: attr(data-placeholder);
-  display: block;
-}
+/* DONT WORK FOR FF */
+/*[contenteditable=true]:empty::before {*/
+/*  content: attr(data-placeholder);*/
+/*  display: block;*/
+/*}*/
 
 .text {
   display: -webkit-box;
@@ -1228,5 +1229,9 @@ button,
 }
 
 .content .element--uploaded .img-upload {
+  display: none;
+}
+
+.hidden-block {
   display: none;
 }
