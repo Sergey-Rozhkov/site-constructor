@@ -20,6 +20,7 @@ export class AbstractBlockComponent extends AbstractComponent {
     this._deleteDataHandler = this._deleteDataHandler.bind(this);
     this._addBtnClickHandler = this._addBtnClickHandler.bind(this);
     this._addElementHandler = this._addElementHandler.bind(this);
+    this._fillBlock = this._fillBlock.bind(this);
   }
 
   _beforeCreateElement() {
@@ -33,9 +34,9 @@ export class AbstractBlockComponent extends AbstractComponent {
 
     this.getElement().querySelector(`button.add-btn`).addEventListener(`click`, this._addBtnClickHandler);
 
-    window.addEventListener(AppEvent.ELEMENT_ADDED, this._fillBlock.bind(this));
-    window.addEventListener(AppEvent.ELEMENT_DELETED, this._fillBlock.bind(this));
-    window.addEventListener(AppEvent.ELEMENT_UPDATED, this._fillBlock.bind(this));
+    window.addEventListener(AppEvent.ELEMENT_ADDED, this._fillBlock);
+    window.addEventListener(AppEvent.ELEMENT_DELETED, this._fillBlock);
+    window.addEventListener(AppEvent.ELEMENT_UPDATED, this._fillBlock);
   }
 
   _addBtnClickHandler() {
