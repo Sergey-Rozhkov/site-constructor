@@ -24,9 +24,9 @@ export class AbstractBlockComponent extends AbstractComponent {
   }
 
   removeEventListeners() {
-    window.addEventListener(AppEvent.ELEMENT_ADDED, this._fillBlock);
-    window.addEventListener(AppEvent.ELEMENT_DELETED, this._fillBlock);
-    window.addEventListener(AppEvent.ELEMENT_UPDATED, this._fillBlock);
+    window.removeEventListener(AppEvent.ELEMENT_ADDED, this._fillBlock);
+    window.removeEventListener(AppEvent.ELEMENT_DELETED, this._fillBlock);
+    window.removeEventListener(AppEvent.ELEMENT_UPDATED, this._fillBlock);
   }
 
   _beforeCreateElement() {
