@@ -1,55 +1,18 @@
-import {BLOCK_TYPES, MOCK_IMAGES, MOCK_TITLES} from './mock.js';
-import {generateId, getRandomElementFromArray, renderElement} from './utils.js';
-
-/**
- * Генерируем случайные данные
- * @param number
- * @returns {[]}
- */
-function generateData(number) {
-  const result = [];
-
-  for (let i = 0; i < number; i++) {
-    const id = generateId();
-    const type = getRandomElementFromArray(BLOCK_TYPES);
-
-    let content;
-    if (type === `img`) {
-      content = getRandomElementFromArray(MOCK_IMAGES);
-    } else {
-      content = getRandomElementFromArray(MOCK_TITLES);
-    }
-
-    const container = getRandomElementFromArray([
-      `header`,
-      `content`,
-      `footer`,
-    ]);
-
-    const item = {
-      id,
-      type,
-      content,
-      container,
-    };
-
-    result.push(item);
-  }
-
-  return result;
-}
-
-const data = generateData(10);
-
-console.log(`generated data is`, data);
+import {renderElement} from './utils.js';
+import {addClickDeleteHandlers} from "./part2.js";
+import {addClickEditHandlers} from "./part3.js";
+import {generateData} from "./part0.js";
 
 const templateContainer = document.querySelector(`.template__elements-wrapper`);
 
+const siteData = generateData(10); // FixMe - удаляем после реализации ч4
+siteData.forEach(renderBlock); // FixMe - удаляем после реализации ч4
+
 /**
  * Рендерим блок в ДОМ
- * @param item
+ * @param {object} item
  */
-function renderBlock(item) {
+export function renderBlock(item) {
   const template = templateContainer.querySelector(`#template-${item.type}`);
   const element = template.cloneNode(true);
   const containerBlock = document.querySelector(`.layout .${item.container}`);
@@ -63,9 +26,11 @@ function renderBlock(item) {
 
   element.removeAttribute(`id`);
 
+  // FixMe - добавляем после реализации ч4
+  addClickDeleteHandlers(element);
+  addClickEditHandlers(element);
+
   renderElement(container, element);
 
   containerBlock.classList.remove(`empty`);
 }
-
-data.forEach(renderBlock);

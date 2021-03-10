@@ -1,14 +1,14 @@
 const elements = document.querySelectorAll(`div.element`);
 
-elements.forEach(addClickHandlers);
+// elements.forEach(addClickDeleteHandlers); // FixMe - удаляем после реализации ч4
 
-function addClickHandlers(element) {
+export function addClickDeleteHandlers(element) {
   const buttonDelete = element.querySelector(`button.delete-btn`);
 
-  buttonDelete.addEventListener(`click`, buttonDeleteClickHandler);
+  buttonDelete.addEventListener(`click`, deleteElementHandler);
 }
 
-function buttonDeleteClickHandler(evt) {
+function deleteElementHandler(evt) {
   const buttonElement = evt.target;
   const blockElement = buttonElement.parentElement;
   const wrapperElement = blockElement.parentElement;
