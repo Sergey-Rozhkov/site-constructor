@@ -6,7 +6,7 @@
   <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <meta content="Конструктор сайтов" name="description">
   <title>Конструктор сайтов</title>
-  <link href="css/style.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
 
 </head>
 <body>
@@ -16,7 +16,7 @@
 
   <form class="grid-select">
     <h2 class="grid-select__header">Выберите сетку сайта</h2>
-    <input class="grid-select__radio visually-hidden" id="grid-landing" name="grid" type="radio">
+    <input checked class="grid-select__radio visually-hidden" id="grid-landing" name="grid" type="radio">
     <label class="grid-select__btn" for="grid-landing">
       <span class="grid-select__text">Лендинг</span>
       <svg class="grid-select__img" fill="none" height="132" viewBox="0 0 240 132" width="240"
@@ -26,7 +26,7 @@
         <rect height="79.4" stroke-dasharray="5 5" stroke-width="0.6" width="239.4" x="0.3" y="26.3"/>
       </svg>
     </label>
-    <input checked class="grid-select__radio visually-hidden" id="grid-blog" name="grid" type="radio">
+    <input class="grid-select__radio visually-hidden" id="grid-blog" name="grid" type="radio">
     <label class="grid-select__btn" for="grid-blog">
       <span class="grid-select__text">Блог</span>
       <svg class="grid-select__img" fill="none" height="132" viewBox="0 0 240 132" width="240"
@@ -51,7 +51,7 @@
     </label>
   </form>
 
-  <div class="layout layout--blog">
+  <div class="layout layout--landing">
     <header class="header header--empty">
       <p class="placeholder">Header</p>
       <button class="add-btn" type="button">
@@ -74,27 +74,6 @@
 
 
     <div class="content content-1 content--empty">
-      <p class="placeholder">Content</p>
-
-      <button class="add-btn" type="button">
-        <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
-          <path clip-rule="evenodd"
-                d="M0 20C0 8.96 8.96 0 20 0C31.04 0 40 8.96 40 20C40 31.04 31.04 40 20 40C8.96 40 0 31.04 0 20ZM22 22H30V18H22V9.99999H18V18H10V22H18V30H22V22Z"
-                fill="#80CCF0" fill-rule="evenodd"/>
-        </svg>
-      </button>
-
-      <div class="choose-elem ">
-        <button class="choose-elem__btn" type="button">Заголовок H1</button>
-        <button class="choose-elem__btn" type="button">Заголовок H2</button>
-        <button class="choose-elem__btn" type="button">Заголовок H3</button>
-        <button class="choose-elem__btn" type="button">Абзац текста</button>
-        <button class="choose-elem__btn" type="button">Изображение</button>
-      </div>
-
-    </div>
-
-    <div class="content content-2 content--empty">
       <p class="placeholder">Content</p>
       <button class="add-btn" type="button">
         <svg fill="none" height="40" viewBox="0 0 40 40" width="40" xmlns="http://www.w3.org/2000/svg">
@@ -137,6 +116,6 @@
   </div>
 </div>
 
-<script src="js/script.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 </html>
