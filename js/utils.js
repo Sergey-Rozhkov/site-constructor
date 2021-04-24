@@ -1,82 +1,60 @@
-export const HIDE_BLOCK_CLASS = `hidden-block`;
-export const DEFAULT_COLUMN_INDEX = 1;
-export const KEYCODE_ENTER = 13;
+const BLOCK_TYPES = [`h1`, `h2`, `h3`, `p`, `img`];
+const CONTAINER_TYPES = [`header`, `content`, `footer`];
+const MOCK_TITLES = [
+  `Я - длинный текст, который займет много места и обязательно растянет блок по вертикали`,
+  `Я - короткий текст`,
+  `Тут может быть заголовок разных уровней или обычный текст`,
+  `Кстати, еще можно и картинку вставить`,
+  `Обнови страницу и посмотри, что будет`,
+  `Генератор подставляет строки случайным образом`,
+  `Попробуйте поэкспериментировать`,
+  `Поменяйте раскладку страницы`,
+  `Содержимое блоков сохраняется даже при смене раскладки`,
+  `Хочешь научиться делать такой генератор сам?`,
+];
+const MOCK_IMAGES = [
+  `../img/lion.png`,
+  `../img/cat.png`,
+  `../img/fox.png`,
+  `../img/owl.png`,
+  `../img/dog.png`,
+];
 
-export const RenderPosition = {
-  BEFOREBEGIN: `beforebegin`,
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`,
-  AFTEREND: `afterend`,
-};
-
-export const LayoutContentColumn = {
-  LANDING: 1,
-  BLOG: 2,
-  SHOP: 3,
-};
-
-export const LayoutType = {
-  LANDING: `landing`,
-  BLOG: `blog`,
-  SHOP: `shop`,
-};
-
-export const BlockType = {
-  HEADER: `header`,
-  CONTENT: `content`,
-  FOOTER: `footer`,
-};
-
-export const ElementType = {
-  H1: `h1`,
-  H2: `h2`,
-  H3: `h3`,
-  P: `p`,
-  IMG: `img`,
-};
-
-export const AppEvent = {
-  LAYOUT_CHANGED: `LayoutChanged`,
-  ELEMENT_ADDED: `ElementAdded`,
-  ELEMENT_DELETED: `ElementDeleted`,
-  ELEMENT_UPDATED: `ElementUpdated`,
-};
-
-export function createElement(template) {
-  const element = document.createElement(`div`);
-  element.innerHTML = template;
-  return element.firstElementChild;
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * max);
 }
 
-export const renderElement = (container, child, position = RenderPosition.BEFOREEND) => {
-  // if (container instanceof AbstractView) {
-  //   container = container.getElement();
-  // }
-  //
-  // if (child instanceof AbstractView) {
-  //   child = child.getElement();
-  // }
+function getRandomElementFromArray(list) {
+  return list[getRandomNumber(list.length)];
+}
 
-  switch (position) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(child);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(child);
-      break;
-    case RenderPosition.AFTEREND:
-      container.parentNode.insertBefore(child, container.nextSibling);
-      break;
-    case RenderPosition.BEFOREBEGIN:
-      container.parentNode.insertBefore(child, container);
-      break;
+function generateData(count = 10) {
+  const result = [];
+
+  for (let i = 0; i < count; i++) {
+    const id = getRandomNumber(1000000);
+    const type = getRandomElementFromArray(BLOCK_TYPES);
+
+    let source = [];
+
+    if (type === `img`) {
+      source = MOCK_IMAGES;
+    } else {
+      source = MOCK_TITLES;
+    }
+
+    const content = getRandomElementFromArray(source);
+    const container = getRandomElementFromArray(CONTAINER_TYPES);
+
+    const item = {
+      id,
+      type,
+      content,
+      container,
+    };
+
+    result.push(item);
   }
-};
 
-export function setElementVisibility(element, visibility) {
-  element.classList.toggle(HIDE_BLOCK_CLASS, !visibility);
-}
-
-export function generateId() {
-  return Math.random().toString(16).slice(8);
+  return result;
 }
