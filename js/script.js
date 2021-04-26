@@ -32,8 +32,6 @@ const init = function () {
   });
 
   document.querySelector('.grid-select').addEventListener('change', changeLayoutHandler);
-
-  window.console.log('init application', 'data is', currentData, 'layout is', currentLayout);
 };
 
 /**
@@ -94,7 +92,6 @@ const buttonDeleteHandler = function (evt) {
   }
 
   currentData.splice(blockIndex, 1);
-  saveData(currentData);
 };
 
 /**
@@ -109,7 +106,7 @@ const editContentHandler = function (evt) {
   });
   const block = currentData[blockIndex];
 
-  let currentValue = '';
+  let currentValue;
 
   if (editedElement.tagName === 'IMG') {
     currentValue = editedElement.src;
@@ -128,8 +125,6 @@ const editContentHandler = function (evt) {
 
     block.content = newValue;
   }
-
-  saveData(currentData);
 };
 
 /**
@@ -140,7 +135,7 @@ const showAddMenuHandler = function (evt) {
   const parentElement = evt.currentTarget.parentNode;
   const addMenuElement = parentElement.querySelector('.choose-elem');
 
-  addMenuElement.classList.remove('hidden');
+  addMenuElement.classList.toggle('hidden');
 };
 
 const DEFAULT_IMG = 'img/empty.png';
@@ -165,7 +160,6 @@ const addElementHandler = function (evt) {
   addMenuElement.classList.add('hidden');
 
   currentData.push(block);
-  saveData(currentData);
 };
 
 /**
@@ -188,41 +182,6 @@ const switchLayout = function (layoutType) {
   layoutElement.classList.remove('layout--blog');
   layoutElement.classList.remove('layout--shop');
   layoutElement.classList.add('layout--' + layoutType);
-  saveLayout(layoutType);
 };
 
 init();
-
-// Опциональное задание: Реализовать сохранения состояния
-
-/**
- * Сохранение данных в хранилище
- * @param {Array} siteData
- */
-const saveData = function (siteData) {
-  window.localStorage.setItem('data', JSON.stringify(siteData));
-};
-
-/**
- * Загрузка данных из хранилища
- * @return {Array}
- */
-const loadData = function () {
-  return JSON.parse(window.localStorage.getItem('data'));
-};
-
-/**
- * Сохранение лэйаута в хранилище
- * @param {String} layoutType
- */
-const saveLayout = function (layoutType) {
-  localStorage.setItem('LayoutType', layoutType);
-};
-
-/**
- * Загрузка лэйаута из хранилища
- * @return {String}
- */
-const loadLayout = function () {
-  return localStorage.getItem('LayoutType');
-};
