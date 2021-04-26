@@ -20,15 +20,15 @@ const MOCK_IMAGES = [
   'img/dog.png',
 ];
 
-function getRandomNumber(max) {
+const getRandomNumber = function (max) {
   return Math.floor(Math.random() * max);
-}
+};
 
-function getRandomElementFromArray(list) {
+const getRandomElementFromArray = function (list) {
   return list[getRandomNumber(list.length)];
-}
+};
 
-function generateData(count = 10) {
+const generateData = function (count = 10) {
   const result = [];
 
   for (let i = 0; i < count; i++) {
@@ -57,4 +57,4 @@ function generateData(count = 10) {
   }
 
   return result;
-}
+};

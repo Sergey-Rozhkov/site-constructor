@@ -14,7 +14,7 @@ const currentLayout = 'landing';
 /**
  * Инициализация приложения
  */
-function init() {
+const init = function () {
   switchLayout(currentLayout);
   currentData.forEach(renderElement);
 
@@ -34,13 +34,13 @@ function init() {
   document.querySelector('.grid-select').addEventListener('change', changeLayoutHandler);
 
   window.console.log('init application', 'data is', currentData, 'layout is', currentLayout);
-}
+};
 
 /**
  * Создание DOM элемента и вставка в документ на основе данных block
  * @param {object} block
  */
-function renderElement(block) {
+const renderElement = function (block) {
   // 1. Выбрать и заполнить шаблон
   const templateElement = document.querySelector('.' + block.type + '-template').content.cloneNode(true);
   const contentElement = templateElement.querySelector('.template-content');
@@ -68,13 +68,13 @@ function renderElement(block) {
   } else {
     containerWrapperElement.parentElement.classList.remove(block.container + '--empty');
   }
-}
+};
 
 /**
  * Обработчик удаления элемента
  * @param {MouseEvent} evt
  */
-function buttonDeleteHandler(evt) {
+const buttonDeleteHandler = function (evt) {
   const element = evt.target.parentNode;
   const id = +element.dataset.id;
   const blockIndex = currentData.findIndex(function (item) {
@@ -95,13 +95,13 @@ function buttonDeleteHandler(evt) {
 
   currentData.splice(blockIndex, 1);
   saveData(currentData);
-}
+};
 
 /**
  * Обработчик изменения контента
  * @param {MouseEvent} evt
  */
-function editContentHandler(evt) {
+const editContentHandler = function (evt) {
   const editedElement = evt.target;
   const id = +editedElement.parentNode.dataset.id;
   const blockIndex = currentData.findIndex(function (item) {
@@ -130,18 +130,18 @@ function editContentHandler(evt) {
   }
 
   saveData(currentData);
-}
+};
 
 /**
  * Обработчик клика на "+" для добавления блока
  * @param {MouseEvent} evt
  */
-function showAddMenuHandler(evt) {
+const showAddMenuHandler = function (evt) {
   const parentElement = evt.currentTarget.parentNode;
   const addMenuElement = parentElement.querySelector('.choose-elem');
 
   addMenuElement.classList.remove('hidden');
-}
+};
 
 const DEFAULT_IMG = 'img/empty.png';
 
@@ -149,7 +149,7 @@ const DEFAULT_IMG = 'img/empty.png';
  * Обработчик добавление блока
  * @param {MouseEvent} evt
  */
-function addElementHandler(evt) {
+const addElementHandler = function (evt) {
   const clickedBtn = evt.target;
   const addMenuElement = clickedBtn.parentNode;
 
@@ -166,30 +166,30 @@ function addElementHandler(evt) {
 
   currentData.push(block);
   saveData(currentData);
-}
+};
 
 /**
  * Обработчик изменения сетки сайта
  * @param {MouseEvent} evt
  */
-function changeLayoutHandler(evt) {
+const changeLayoutHandler = function (evt) {
   const newLayout = evt.target.value;
 
   switchLayout(newLayout);
-}
+};
 
 /**
  * Метод переключения сетки сайта
  * @param {string} layoutType
  */
-function switchLayout(layoutType) {
+const switchLayout = function (layoutType) {
   const layoutElement = document.querySelector('.layout');
   layoutElement.classList.remove('layout--landing');
   layoutElement.classList.remove('layout--blog');
   layoutElement.classList.remove('layout--shop');
   layoutElement.classList.add('layout--' + layoutType);
   saveLayout(layoutType);
-}
+};
 
 init();
 
@@ -199,30 +199,30 @@ init();
  * Сохранение данных в хранилище
  * @param {Array} siteData
  */
-function saveData(siteData) {
+const saveData = function (siteData) {
   window.localStorage.setItem('data', JSON.stringify(siteData));
-}
+};
 
 /**
  * Загрузка данных из хранилища
  * @return {Array}
  */
-function loadData() {
+const loadData = function () {
   return JSON.parse(window.localStorage.getItem('data'));
-}
+};
 
 /**
  * Сохранение лэйаута в хранилище
  * @param {String} layoutType
  */
-function saveLayout(layoutType) {
+const saveLayout = function (layoutType) {
   localStorage.setItem('LayoutType', layoutType);
-}
+};
 
 /**
  * Загрузка лэйаута из хранилища
  * @return {String}
  */
-function loadLayout() {
+const loadLayout = function () {
   return localStorage.getItem('LayoutType');
-}
+};
